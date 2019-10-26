@@ -93,14 +93,10 @@ public class ColorDialog {
 			rgbSpinners[i] = new Spinner(group, SWT.READ_ONLY | SWT.FILL);
 			rgbSpinners[i].setMinimum(0);
 			rgbSpinners[i].setMaximum(255);
-			rgbSpinners[i].setSelection(100);
+			rgbSpinners[i].setSelection(80);
 			rgbSpinners[i].setBackground(new Color(display, 255, 255, 255));
 			rgbSpinners[i].setLayoutData(layoutDataSpinners);
 		}
-
-		rgbSpinners[0].setSelection(0);
-		rgbSpinners[1].setSelection(0);
-		rgbSpinners[2].setSelection(0);
 	}
 
 	private void makeButtons() {
