@@ -12,7 +12,6 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        Editor e = new Editor();
-        e.open();
+        new Editor().run();
     }
 }

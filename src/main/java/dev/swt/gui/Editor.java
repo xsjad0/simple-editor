@@ -1,14 +1,15 @@
 package dev.swt.gui;
 
-import org.eclipse.swt.layout.*;
-
 import java.io.File;
+import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.*;
-
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.*;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 
 public class Editor {
 
@@ -28,6 +29,11 @@ public class Editor {
 	private Image[] coolButtonImages;
 	private String[] pathImages = { "icon_OpenFolder.gif", "home_nav.gif" };
 
+	private CTabFolder tabFolder;
+	private ArrayList<CTabItem> tabs;
+	private ArrayList<Text> tabsText;
+	private String newTabText = "New Tab";
+
 	private Color textColor;
 
 	private String[] menuTitles = { "&File", "&Edit", "&Help" };
@@ -45,11 +51,11 @@ public class Editor {
 		makeMenu();
 		makeImages();
 		makeCoolBar();
-		makeTabs();
+		makeTabContainer();
 		addListeners();
 	}
 
-	public void open() {
+	public void run() {
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -85,10 +91,16 @@ public class Editor {
 			coolButtonImages[1].dispose();
 	}
 
+	/**
+	* Create display
+	*/
 	private void makeDisplay() {
 		display = new Display();
 	}
 
+	/**
+	* Create shell with grid layout
+	*/
 	private void makeShell() {
 		shell = new Shell();
 		GridLayout layout = new GridLayout();
@@ -100,6 +112,9 @@ public class Editor {
 		shell.setLayout(layout);
 	}
 
+	/**
+	* Create menu bar
+	*/
 	private void makeMenu() {
 		menuBar = new Menu(shell, SWT.BAR | SWT.LEFT_TO_RIGHT);
 		shell.setMenuBar(menuBar);
@@ -109,6 +124,7 @@ public class Editor {
 		menuItems = new MenuItem[menuTitles.length];
 		menus = new Menu[menuTitles.length];
 		subMenuItems = new MenuItem[subMenuTitles.length][subMenuTitles[1].length];
+
 		for (int i = 0; i < menuItems.length; i++) {
 			menuItems[i] = new MenuItem(menuBar, SWT.CASCADE);
 			menuItems[i].setText(menuTitles[i]);
@@ -133,30 +149,51 @@ public class Editor {
 		} // for (int i = 0; i < menuItems.length; i++) {
 	}
 
+	/**
+	* Create cool bar with specified items
+	*/
 	private void makeCoolBar() {
 		coolBar = new CoolBar(shell, SWT.HORIZONTAL);
 		coolBar.setLayoutData(new GridData(SWT.LEFT_TO_RIGHT, SWT.CENTER, true, false, 1, 1));
-		coolItems = new CoolItem[2];
+		coolItems = new CoolItem[pathImages.length];
 		coolButtons = new Button[pathImages.length];
-		for (int i = 0; i < 2; i++) {
+
+		for (int i = 0; i < pathImages.length; i++) {
 			coolItems[i] = new CoolItem(coolBar, SWT.NONE);
 			coolButtons[i] = new Button(coolBar, SWT.PUSH);
 			coolButtons[i].setImage(coolButtonImages[i]);
-			// coolItems[i].setImage(image);
 			coolItems[i]
 					.setPreferredSize(coolItems[i].computeSize(coolButtons[i].computeSize(SWT.DEFAULT, SWT.DEFAULT).x,
 							coolButtons[i].computeSize(SWT.DEFAULT, SWT.DEFAULT).y));
-			// coolItems[i].setPreferredSize(50, 50);
 			coolItems[i].setControl(coolButtons[i]);
-			// coolItems[i].setSize(100, 100);
-
 		}
 	}
 
-	private void makeTabs() {
-		// TODO: implement tabbar
+	/**
+	* Create tab container
+	*/
+	private void makeTabContainer() {
+		CTabFolder tabFolder = new CTabFolder(shell, SWT.BORDER);
+		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
+		Text text = new Text(tabFolder, SWT.MULTI);
+		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		tabs = new ArrayList<>();
+		tabsText = new ArrayList<>();
+
+		tabFolder.setLayoutData(layoutData);
+
+		item.setText(newTabText);
+		item.setControl(text);
+		item.setShowClose(false);
+
+		tabs.add(item);
+
+		tabFolder.setSelection(0);
 	}
 
+	/**
+	* Add event listeners
+	*/
 	private void addListeners() {
 		// File-Menu
 		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew());
@@ -169,5 +206,11 @@ public class Editor {
 
 		// Help-Menu
 		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(textColor));
+
+		// CoolBarItem-Open
+		coolItems[0].addSelectionListener(new SelectionAdapterOpen());
+		coolItems[0].addSelectionListener(new SelectionAdapterSave());
+
+		// 
 	}
 }
