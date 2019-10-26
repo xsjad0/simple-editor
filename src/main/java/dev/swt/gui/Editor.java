@@ -31,8 +31,7 @@ public class Editor {
 
 	private CTabFolder tabFolder;
 	private ArrayList<CTabItem> tabs;
-	private ArrayList<Text> tabsText;
-	private String newTabText = "New Tab";
+	private ArrayList<Text> tabTextFields;
 
 	private Color textColor;
 
@@ -63,6 +62,7 @@ public class Editor {
 			}
 		}
 		disposeImages();
+		disposeTabs(); // ? is this a must have???
 		display.dispose();
 	}
 
@@ -79,16 +79,6 @@ public class Editor {
 			// Images not found; handle gracefully
 			System.out.println("image not found");
 		}
-	}
-
-	/**
-	* Disposes the images
-	*/
-	private void disposeImages() {
-		if (coolButtonImages[0] != null)
-			coolButtonImages[0].dispose();
-		if (coolButtonImages[1] != null)
-			coolButtonImages[1].dispose();
 	}
 
 	/**
@@ -173,20 +163,21 @@ public class Editor {
 	* Create tab container
 	*/
 	private void makeTabContainer() {
-		CTabFolder tabFolder = new CTabFolder(shell, SWT.BORDER);
+		tabFolder = new CTabFolder(shell, SWT.BORDER);
 		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
-		Text text = new Text(tabFolder, SWT.MULTI);
+		Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		tabs = new ArrayList<>();
-		tabsText = new ArrayList<>();
+		tabTextFields = new ArrayList<>();
 
 		tabFolder.setLayoutData(layoutData);
 
-		item.setText(newTabText);
+		item.setText("New Tab");
 		item.setControl(text);
 		item.setShowClose(false);
 
 		tabs.add(item);
+		tabTextFields.add(text);
 
 		tabFolder.setSelection(0);
 	}
@@ -196,7 +187,7 @@ public class Editor {
 	*/
 	private void addListeners() {
 		// File-Menu
-		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew());
+		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew(tabFolder, tabs, tabTextFields));
 		subMenuItems[0][1].addSelectionListener(new SelectionAdapterSave());
 		subMenuItems[0][2].addSelectionListener(new SelectionAdapterOpen());
 		subMenuItems[0][3].addSelectionListener(new SelectionAdapterQuit());
@@ -211,6 +202,35 @@ public class Editor {
 		coolItems[0].addSelectionListener(new SelectionAdapterOpen());
 		coolItems[0].addSelectionListener(new SelectionAdapterSave());
 
-		// 
+		// First tab
+		tabs.get(0).addDisposeListener(new DisposeListenerTab());
+	}
+
+	/**
+	* Disposes the images
+	*/
+	private void disposeImages() {
+		if (coolButtonImages[0] != null)
+			coolButtonImages[0].dispose();
+		if (coolButtonImages[1] != null)
+			coolButtonImages[1].dispose();
+	}
+
+	/**
+	* Disposes tabs and textfields
+	*/
+	private void disposeTabs() {
+		// dispose textfields
+		for (Text t : tabTextFields) {
+			t.dispose();
+		}
+
+		// dispose ctabitems
+		for (CTabItem i : tabs) {
+			i.dispose();
+		}
+
+		// dispose tab container
+		tabFolder.dispose();
 	}
 }
