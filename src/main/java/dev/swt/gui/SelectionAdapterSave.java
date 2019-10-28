@@ -25,10 +25,13 @@ public class SelectionAdapterSave extends SelectionAdapter {
 			Shell shell = (Shell) tabFolder.getShell();
 			FileDialog ask = new FileDialog(shell, SWT.SAVE);
 			String path = ask.open();
-			String[] pathArray = path.split(Pattern.quote(File.separator));
-			String filename = pathArray[pathArray.length - 1];
-			selectedTab.setText(filename);
-			FileIO.write(path, text.getText());
+
+			if (path != null) {
+				String[] pathArray = path.split(Pattern.quote(File.separator));
+				String filename = pathArray[pathArray.length - 1];
+				selectedTab.setText(filename);
+				FileIO.write(path, text.getText());
+			}
 		}
 	}
 }
