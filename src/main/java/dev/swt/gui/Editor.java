@@ -184,8 +184,8 @@ public class Editor {
 	private void addListeners() {
 		// File-Menu
 		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew(tabFolder));
-		subMenuItems[0][1].addSelectionListener(new SelectionAdapterSave());
-		subMenuItems[0][2].addSelectionListener(new SelectionAdapterOpen());
+		subMenuItems[0][1].addSelectionListener(new SelectionAdapterOpen(tabFolder));
+		subMenuItems[0][2].addSelectionListener(new SelectionAdapterSave(tabFolder));
 		subMenuItems[0][3].addSelectionListener(new SelectionAdapterQuit());
 
 		// Edit-Menu
@@ -195,8 +195,8 @@ public class Editor {
 		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabForegroundColor));
 
 		// CoolBarItem-Open
-		coolItems[0].addSelectionListener(new SelectionAdapterOpen());
-		coolItems[0].addSelectionListener(new SelectionAdapterSave());
+		coolItems[0].addSelectionListener(new SelectionAdapterOpen(tabFolder));
+		coolItems[0].addSelectionListener(new SelectionAdapterSave(tabFolder));
 
 		// TabFolder
 		tabFolder.addCTabFolder2Listener(new TabEventListener());

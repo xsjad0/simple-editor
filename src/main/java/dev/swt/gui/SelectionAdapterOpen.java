@@ -1,26 +1,35 @@
 package dev.swt.gui;
 
+import java.io.File;
+import java.util.regex.Pattern;
+
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.*;
 import org.eclipse.swt.widgets.*;
 
 public class SelectionAdapterOpen extends SelectionAdapter {
 
-	private Label label;
+	private CTabFolder tabFolder;
 
-	public SelectionAdapterOpen() {
-
+	public SelectionAdapterOpen(CTabFolder tabFolder) {
+		this.tabFolder = tabFolder;
 	}
 
 	public void widgetSelected(SelectionEvent e) {
-		String content;
-
-		// windows file dialog
-		Shell shell = (Shell) this.label.getParent();
+		CTabItem newTab = new CTabItem(tabFolder, SWT.CLOSE);
+		Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
+		Shell shell = (Shell) tabFolder.getShell();
 		FileDialog ask = new FileDialog(shell, SWT.OPEN);
-		String filename = ask.open();
-		content = FileIO.read(filename);
+		String path = ask.open();
+		String[] pathArray = path.split(Pattern.quote(File.separator));
+		String filename = pathArray[pathArray.length - 1];
+		String content = FileIO.read(path);
 
-		// put content in label of new tab
+		newTab.setControl(text);
+		newTab.setText(filename);
+		text.setText(content);
+		tabFolder.setSelection(newTab);
 	}
 }
