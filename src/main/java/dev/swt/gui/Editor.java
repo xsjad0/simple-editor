@@ -32,17 +32,19 @@ public class Editor {
 	private CTabFolder tabFolder;
 	private ArrayList<CTabItem> tabs;
 	private ArrayList<Text> tabTextFields;
-
-	private Color textColor;
+	private Color tabForegroundColor;
 
 	private String[] menuTitles = { "&File", "&Edit", "&Help" };
 	private String[][] subMenuTitles = { { "&New\tCtrl+N", "&Open...\tCtrl+O", "&Save...\tCtrl+S", "&Quit\tCtrl+Q" },
 			{ "Text &Color\tCtrl+C", "", "", "" }, { "&Version\tCtrl+V", "", "", "" } };
 	private Character[] menuMnemonics = { 'F', 'E', 'H' };
 	private Character[][] subMenuMnemonics = { { 'N', 'O', 'S', 'Q' }, { 'C' }, { 'V' } };
-	/* private String[][] subMenuToolTips = {
-			{ "Create new file", "Open existing file", "Save text to file", "Exit	program" },
-			{ "Select text color", "", "", "" }, { "Show version informations", "", "", "" } }; */
+	/*
+	 * private String[][] subMenuToolTips = { { "Create new file",
+	 * "Open existing file", "Save text to file", "Exit	program" }, {
+	 * "Select text color", "", "", "" }, { "Show version informations", "", "", ""
+	 * } };
+	 */
 
 	public Editor() {
 		makeDisplay();
@@ -67,8 +69,8 @@ public class Editor {
 	}
 
 	/**
-	* Creates the images	
-	*/
+	 * Creates the images
+	 */
 	private void makeImages() {
 		coolButtonImages = new Image[pathImages.length];
 		try {
@@ -82,15 +84,15 @@ public class Editor {
 	}
 
 	/**
-	* Create display
-	*/
+	 * Create display
+	 */
 	private void makeDisplay() {
 		display = new Display();
 	}
 
 	/**
-	* Create shell with grid layout
-	*/
+	 * Create shell with grid layout
+	 */
 	private void makeShell() {
 		shell = new Shell();
 		GridLayout layout = new GridLayout();
@@ -100,11 +102,12 @@ public class Editor {
 		layout.verticalSpacing = 5;
 
 		shell.setLayout(layout);
+		shell.setText("Simple-Editor");
 	}
 
 	/**
-	* Create menu bar
-	*/
+	 * Create menu bar
+	 */
 	private void makeMenu() {
 		menuBar = new Menu(shell, SWT.BAR | SWT.LEFT_TO_RIGHT);
 		shell.setMenuBar(menuBar);
@@ -140,8 +143,8 @@ public class Editor {
 	}
 
 	/**
-	* Create cool bar with specified items
-	*/
+	 * Create cool bar with specified items
+	 */
 	private void makeCoolBar() {
 		coolBar = new CoolBar(shell, SWT.HORIZONTAL);
 		coolBar.setLayoutData(new GridData(SWT.LEFT_TO_RIGHT, SWT.CENTER, true, false, 1, 1));
@@ -160,8 +163,8 @@ public class Editor {
 	}
 
 	/**
-	* Create tab container
-	*/
+	 * Create tab container
+	 */
 	private void makeTabContainer() {
 		tabFolder = new CTabFolder(shell, SWT.BORDER);
 		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
@@ -172,9 +175,9 @@ public class Editor {
 
 		tabFolder.setLayoutData(layoutData);
 
-		item.setText("New Tab");
+		item.setText("New Tab (" + tabs.size() + ")");
 		item.setControl(text);
-		item.setShowClose(false);
+		// item.setShowClose(false);
 
 		tabs.add(item);
 		tabTextFields.add(text);
@@ -183,8 +186,8 @@ public class Editor {
 	}
 
 	/**
-	* Add event listeners
-	*/
+	 * Add event listeners
+	 */
 	private void addListeners() {
 		// File-Menu
 		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew(tabFolder, tabs, tabTextFields));
@@ -193,10 +196,10 @@ public class Editor {
 		subMenuItems[0][3].addSelectionListener(new SelectionAdapterQuit());
 
 		// Edit-Menu
-		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(textColor));
+		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabForegroundColor));
 
 		// Help-Menu
-		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(textColor));
+		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabForegroundColor));
 
 		// CoolBarItem-Open
 		coolItems[0].addSelectionListener(new SelectionAdapterOpen());
@@ -207,8 +210,8 @@ public class Editor {
 	}
 
 	/**
-	* Disposes the images
-	*/
+	 * Disposes the images
+	 */
 	private void disposeImages() {
 		if (coolButtonImages[0] != null)
 			coolButtonImages[0].dispose();
@@ -217,8 +220,8 @@ public class Editor {
 	}
 
 	/**
-	* Disposes tabs and textfields
-	*/
+	 * Disposes tabs and textfields
+	 */
 	private void disposeTabs() {
 		// dispose textfields
 		for (Text t : tabTextFields) {

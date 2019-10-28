@@ -24,9 +24,9 @@ public class SelectionAdapterNew extends SelectionAdapter {
 		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
 		Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 
-		item.setText("New Tab");
+		item.setText("New Tab (" + tabs.size() + ")");
 		item.setControl(text);
-		item.setShowClose(false);
+		// item.setShowClose(false);
 
 		tabs.add(item);
 		tabTextFields.add(text);
