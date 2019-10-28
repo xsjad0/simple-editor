@@ -10,6 +10,8 @@ import org.eclipse.swt.widgets.*;
 
 public class SelectionAdapterNew extends SelectionAdapter {
 
+	private static int tabCount = 1;
+
 	private CTabFolder tabFolder;
 	private ArrayList<CTabItem> tabs;
 	private ArrayList<Text> tabTextFields;
@@ -22,7 +24,8 @@ public class SelectionAdapterNew extends SelectionAdapter {
 		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
 		Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 
-		item.setText("New Tab (" + tabs.size() + ")");
+		SelectionAdapterNew.tabCount++;
+		item.setText("untitled-" + SelectionAdapterNew.tabCount);
 		item.setControl(text);
 		// item.setShowClose(false);
 
