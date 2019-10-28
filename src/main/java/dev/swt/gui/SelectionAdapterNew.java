@@ -14,10 +14,8 @@ public class SelectionAdapterNew extends SelectionAdapter {
 	private ArrayList<CTabItem> tabs;
 	private ArrayList<Text> tabTextFields;
 
-	public SelectionAdapterNew(CTabFolder tabFolder, ArrayList<CTabItem> tabs, ArrayList<Text> tabTextFields) {
+	public SelectionAdapterNew(CTabFolder tabFolder) {
 		this.tabFolder = tabFolder;
-		this.tabs = tabs;
-		this.tabTextFields = tabTextFields;
 	}
 
 	public void widgetSelected(SelectionEvent e) {
@@ -28,9 +26,6 @@ public class SelectionAdapterNew extends SelectionAdapter {
 		item.setControl(text);
 		// item.setShowClose(false);
 
-		tabs.add(item);
-		tabTextFields.add(text);
-
-		tabFolder.setSelection(tabs.size() - 1);
+		tabFolder.setSelection(tabFolder.getItemCount() - 1);
 	}
 }

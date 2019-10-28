@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabFolder2Listener;
 import org.eclipse.swt.custom.CTabItem;
 
 public class Editor {
@@ -30,8 +31,6 @@ public class Editor {
 	private String[] pathImages = { "icon_OpenFolder.gif", "home_nav.gif" };
 
 	private CTabFolder tabFolder;
-	private ArrayList<CTabItem> tabs;
-	private ArrayList<Text> tabTextFields;
 	private Color tabForegroundColor;
 
 	private String[] menuTitles = { "&File", "&Edit", "&Help" };
@@ -64,7 +63,6 @@ public class Editor {
 			}
 		}
 		disposeImages();
-		disposeTabs(); // ? is this a must have???
 		display.dispose();
 	}
 
@@ -170,17 +168,12 @@ public class Editor {
 		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
 		Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-		tabs = new ArrayList<>();
-		tabTextFields = new ArrayList<>();
 
 		tabFolder.setLayoutData(layoutData);
 
-		item.setText("New Tab (" + tabs.size() + ")");
+		item.setText("New Tab (" + tabFolder.getItemCount() + ")");
 		item.setControl(text);
 		// item.setShowClose(false);
-
-		tabs.add(item);
-		tabTextFields.add(text);
 
 		tabFolder.setSelection(0);
 	}
@@ -190,7 +183,7 @@ public class Editor {
 	 */
 	private void addListeners() {
 		// File-Menu
-		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew(tabFolder, tabs, tabTextFields));
+		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew(tabFolder));
 		subMenuItems[0][1].addSelectionListener(new SelectionAdapterSave());
 		subMenuItems[0][2].addSelectionListener(new SelectionAdapterOpen());
 		subMenuItems[0][3].addSelectionListener(new SelectionAdapterQuit());
@@ -205,8 +198,8 @@ public class Editor {
 		coolItems[0].addSelectionListener(new SelectionAdapterOpen());
 		coolItems[0].addSelectionListener(new SelectionAdapterSave());
 
-		// First tab
-		tabs.get(0).addDisposeListener(new DisposeListenerTab());
+		// TabFolder
+		tabFolder.addCTabFolder2Listener(new TabEventListener());
 	}
 
 	/**
@@ -217,23 +210,5 @@ public class Editor {
 			coolButtonImages[0].dispose();
 		if (coolButtonImages[1] != null)
 			coolButtonImages[1].dispose();
-	}
-
-	/**
-	 * Disposes tabs and textfields
-	 */
-	private void disposeTabs() {
-		// dispose textfields
-		for (Text t : tabTextFields) {
-			t.dispose();
-		}
-
-		// dispose ctabitems
-		for (CTabItem i : tabs) {
-			i.dispose();
-		}
-
-		// dispose tab container
-		tabFolder.dispose();
 	}
 }
