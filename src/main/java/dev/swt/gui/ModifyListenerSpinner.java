@@ -27,6 +27,10 @@ public class ModifyListenerSpinner implements ModifyListener {
 	private void updateColor() {
 		Color color;
 
+		if (rgb == null) {
+			rgb = new RGB();
+		}
+
 		rgb.setRed(rgbs[0].getSelection());
 		rgb.setGreen(rgbs[1].getSelection());
 		rgb.setBlue(rgbs[2].getSelection());
