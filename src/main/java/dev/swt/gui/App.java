@@ -9,9 +9,18 @@ public final class App {
 
     /**
      * Start simple-editor
+     * 
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        new Editor().run();
+        switch (args[0]) {
+        case "color":
+            new ColorDialog().open();
+            break;
+        default:
+            new Editor().run();
+            break;
+        }
+
     }
 }
