@@ -233,9 +233,10 @@ public class Editor {
 	 * Disposes the images
 	 */
 	private void disposeImages() {
-		if (coolButtonImages[0] != null)
-			coolButtonImages[0].dispose();
-		if (coolButtonImages[1] != null)
-			coolButtonImages[1].dispose();
+		for (Image image : coolButtonImages) {
+			if (image != null) {
+				image.dispose();
+			}
+		}
 	}
 }
