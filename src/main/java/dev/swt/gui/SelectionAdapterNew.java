@@ -13,8 +13,6 @@ public class SelectionAdapterNew extends SelectionAdapter {
 	private static int tabCount = 1;
 
 	private CTabFolder tabFolder;
-	private ArrayList<CTabItem> tabs;
-	private ArrayList<Text> tabTextFields;
 
 	public SelectionAdapterNew(CTabFolder tabFolder) {
 		this.tabFolder = tabFolder;

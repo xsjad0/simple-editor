@@ -31,7 +31,6 @@ public class Editor {
 	private String[] pathImages = { "icon_OpenFolder.gif", "home_nav.gif" };
 
 	private CTabFolder tabFolder;
-	private Color tabForegroundColor;
 
 	private String[] menuTitles = { "&File", "&Edit", "&Help" };
 	private String[][] subMenuTitles = { { "&New\tCtrl+N", "&Open...\tCtrl+O", "&Save...\tCtrl+S", "&Quit\tCtrl+Q" },
@@ -171,7 +170,7 @@ public class Editor {
 
 		tabFolder.setLayoutData(layoutData);
 
-		item.setText("New Tab (" + tabFolder.getItemCount() + ")");
+		item.setText("untitled-1");
 		item.setControl(text);
 		// item.setShowClose(false);
 
@@ -189,17 +188,23 @@ public class Editor {
 		subMenuItems[0][3].addSelectionListener(new SelectionAdapterQuit());
 
 		// Edit-Menu
-		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabForegroundColor));
+		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabFolder));
 
 		// Help-Menu
-		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabForegroundColor));
+		// subMenuItems[1][0].addSelectionListener(new
+		// SelectionAdapterColor(tabForegroundColor));
 
 		// CoolBarItem-Open
-		coolItems[0].addSelectionListener(new SelectionAdapterOpen(tabFolder));
-		coolItems[0].addSelectionListener(new SelectionAdapterSave(tabFolder));
+		coolButtons[0].addSelectionListener(new SelectionAdapterOpen(tabFolder));
+		coolButtons[1].addSelectionListener(new SelectionAdapterSave(tabFolder));
 
 		// TabFolder
 		tabFolder.addCTabFolder2Listener(new TabEventListener());
+		/*
+		 * CTabItem[] items = tabFolder.getItems(); for (CTabItem item : items) { Text
+		 * text = (Text) item.getControl(); text.addModifyListener(new
+		 * ModifyListenerText(tabFolder)); }
+		 */
 	}
 
 	/**

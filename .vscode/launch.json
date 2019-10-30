@@ -2,10 +2,12 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - App",
+            "name": "(Launch) - Editor",
             "request": "launch",
             "mainClass": "dev.swt.gui.App",
-            "projectName": "a1-simple-editor"
+            "projectName": "a1-simple-editor",
+            "console": "internalConsole",
+            "args": "editor"
         }
     ]
 }

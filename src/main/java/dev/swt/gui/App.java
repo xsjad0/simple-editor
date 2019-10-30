@@ -14,8 +14,8 @@ public final class App {
      */
     public static void main(String[] args) {
         switch (args[0]) {
-        case "color":
-            new ColorDialog().open();
+        case "editor":
+            new Editor().run();
             break;
         default:
             new Editor().run();

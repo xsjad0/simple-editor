@@ -1,14 +1,15 @@
 package dev.swt.gui;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
-public class ColorDialog {
+public class ColorDialog extends Dialog {
 
-	private Display display;
-	private Shell shell;
 	private Label textLabel, colorField;
 	private RGB rgb;
 	private Label[] rgbLabels;
@@ -18,57 +19,107 @@ public class ColorDialog {
 	private String[] btnTitles = { "Ok", "Cancel" };
 	private String[] rgbTitles = { "red", "green", "blue" };
 
-	public ColorDialog() {
-		makeDisplay();
-		makeShell();
-		makeTextLabel();
-		makeColorField();
-		makeSpinners();
-		makeButtons();
-		addListeners();
-		shell.pack();
+	public ColorDialog(Shell shell, int style) {
+		super(shell, style);
 	}
 
-	public void open() {
-		shell.open();
-		while (!shell.isDisposed()) {
+	public ColorDialog(Shell shell) {
+		this(shell, 0);
+	}
+
+	public Object open() {
+		Shell parent = getParent();
+		Display display = parent.getDisplay();
+		Shell shellDialog = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+		// create content
+		makeShell(shellDialog);
+		makeTextLabel(shellDialog);
+		makeColorField(shellDialog);
+		makeSpinners(display, shellDialog);
+		makeButtons(shellDialog);
+
+		// modify listener for each spinner
+		for (Spinner s : rgbSpinners) {
+			s.addModifyListener(new ModifyListenerSpinner(colorField, rgbSpinners));
+		}
+
+		// selection listener ok-button
+		btns[0].addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				getColor();
+				e.display.getActiveShell().dispose();
+			}
+
+			private void getColor() {
+				if (rgb == null) {
+					rgb = new RGB();
+				}
+
+				rgb.setRed(rgbSpinners[0].getSelection());
+				rgb.setGreen(rgbSpinners[1].getSelection());
+				rgb.setBlue(rgbSpinners[2].getSelection());
+			}
+		});
+
+		// selection listener cancel-button
+		btns[1].addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				e.display.getActiveShell().dispose();
+			}
+		});
+
+		shellDialog.setText(getText());
+		shellDialog.open();
+		shellDialog.pack();
+		while (!shellDialog.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
+
+		return rgb;
 	}
 
-	private void makeDisplay() {
-		display = new Display();
-	}
-
-	private void makeShell() {
-		shell = new Shell(display);
+	private void makeShell(final Shell shell) {
 		GridLayout layout = new GridLayout();
 		layout.horizontalSpacing = 20;
 		layout.verticalSpacing = 5;
 		layout.numColumns = 2;
 		layout.makeColumnsEqualWidth = true;
 		shell.setLayout(layout);
-		// shell.setBackground(new Color(display, 100, 100, 100));
 	}
 
-	private void makeTextLabel() {
+	private void makeTextLabel(final Shell shell) {
 		textLabel = new Label(shell, SWT.FILL);
 		GridData layoutData = new GridData(SWT.CENTER, SWT.CENTER, true, true, 2, 1);
 		textLabel.setLayoutData(layoutData);
 		textLabel.setText(subTitle);
 	}
 
-	private void makeColorField() {
+	private void makeColorField(final Shell shell) {
 		colorField = new Label(shell, SWT.LEFT);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2);
 		colorField.setLayoutData(layoutData);
-		// color.setFont(fGlobal);
-		// color.setBackground(cLabel);
 	}
 
-	private void makeSpinners() {
+	private void makeSpinners(Display display, final Shell shell) {
 		Group group = new Group(shell, SWT.SHADOW_ETCHED_IN);
 		GridLayout layout = new GridLayout();
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2);
@@ -99,7 +150,7 @@ public class ColorDialog {
 		}
 	}
 
-	private void makeButtons() {
+	private void makeButtons(final Shell shell) {
 		btns = new Button[btnTitles.length];
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 
@@ -108,13 +159,5 @@ public class ColorDialog {
 			btns[i].setText(btnTitles[i]);
 			btns[i].setLayoutData(layoutData);
 		}
-	}
-
-	private void addListeners() {
-		for (Spinner s : rgbSpinners) {
-			s.addModifyListener(new ModifyListenerSpinner(colorField, rgbSpinners, rgb));
-		}
-		btns[0].addSelectionListener(new SelectionAdapterOk(rgbSpinners, rgb));
-		btns[1].addSelectionListener(new SelectionAdapterCancel());
 	}
 }
