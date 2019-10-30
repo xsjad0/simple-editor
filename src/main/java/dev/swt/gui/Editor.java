@@ -1,15 +1,12 @@
 package dev.swt.gui;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabFolder2Listener;
 import org.eclipse.swt.custom.CTabItem;
 
 public class Editor {
@@ -37,12 +34,10 @@ public class Editor {
 			{ "Text &Color\tCtrl+C", "", "", "" }, { "&Version\tCtrl+V", "", "", "" } };
 	private Character[] menuMnemonics = { 'F', 'E', 'H' };
 	private Character[][] subMenuMnemonics = { { 'N', 'O', 'S', 'Q' }, { 'C' }, { 'V' } };
-	/*
-	 * private String[][] subMenuToolTips = { { "Create new file",
-	 * "Open existing file", "Save text to file", "Exit	program" }, {
-	 * "Select text color", "", "", "" }, { "Show version informations", "", "", ""
-	 * } };
-	 */
+
+	/* private String[][] subMenuToolTips = {
+			{ "Create new file", "Open existing file", "Save text to file", "Exit	program" },
+			{ "Select text color", "", "", "" }, { "Show version informations", "", "", "" } }; */
 
 	public Editor() {
 		makeDisplay();
@@ -165,7 +160,8 @@ public class Editor {
 	private void makeTabContainer() {
 		tabFolder = new CTabFolder(shell, SWT.BORDER);
 		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
-		Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
+		// Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
+		MyText text = new MyText(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 
 		tabFolder.setLayoutData(layoutData);
@@ -200,11 +196,37 @@ public class Editor {
 
 		// TabFolder
 		tabFolder.addCTabFolder2Listener(new TabEventListener());
-		/*
-		 * CTabItem[] items = tabFolder.getItems(); for (CTabItem item : items) { Text
-		 * text = (Text) item.getControl(); text.addModifyListener(new
-		 * ModifyListenerText(tabFolder)); }
-		 */
+
+		CTabItem[] items = tabFolder.getItems();
+		for (CTabItem item : items) {
+			MyText text = (MyText) item.getControl();
+			text.addModifyListener(new ModifyListenerText());
+		}
+
+		// Application
+		shell.addListener(SWT.Close, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				CTabItem[] tabs = tabFolder.getItems();
+				boolean isAnyTabModified = false;
+
+				for (CTabItem tab : tabs) {
+					MyText text = (MyText) tab.getControl();
+					if (text.isModified()) {
+						isAnyTabModified = true;
+						break;
+					}
+				}
+
+				if (isAnyTabModified) {
+					MessageBox messageBox = new MessageBox(tabFolder.getShell(),
+							SWT.APPLICATION_MODAL | SWT.YES | SWT.NO);
+					messageBox.setText("Information");
+					messageBox.setMessage("Modified tabs found.\nClose application anyway?");
+					event.doit = messageBox.open() == SWT.YES;
+				}
+			}
+		});
 	}
 
 	/**

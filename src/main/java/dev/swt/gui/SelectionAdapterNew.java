@@ -20,13 +20,16 @@ public class SelectionAdapterNew extends SelectionAdapter {
 
 	public void widgetSelected(SelectionEvent e) {
 		CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
-		Text text = new Text(tabFolder, SWT.MULTI | SWT.V_SCROLL);
+		MyText text = new MyText(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 
 		SelectionAdapterNew.tabCount++;
+
 		item.setText("untitled-" + SelectionAdapterNew.tabCount);
 		item.setControl(text);
 		// item.setShowClose(false);
 
+		text.addModifyListener(new ModifyListenerText());
 		tabFolder.setSelection(tabFolder.getItemCount() - 1);
+
 	}
 }

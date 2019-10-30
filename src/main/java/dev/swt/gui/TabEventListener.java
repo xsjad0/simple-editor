@@ -1,29 +1,34 @@
 package dev.swt.gui;
 
+import java.io.File;
+import java.util.regex.Pattern;
+
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabFolder2Listener;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 public class TabEventListener implements CTabFolder2Listener {
 
     @Override
     public void close(CTabFolderEvent event) {
-        /* ModifyListenerText listener = (ModifyListenerText) event.item.getListeners(SWT.Modify)[0];
+        CTabFolder tabFolder = (CTabFolder) event.getSource();
+        MyText text = (MyText) tabFolder.getSelection().getControl();
 
-        if (listener.isModified()) {
-            Shell shell = (Shell) 
+        if (text.isModified()) {
+            Shell shell = (Shell) text.getShell();
             FileDialog ask = new FileDialog(shell, SWT.SAVE);
             String path = ask.open();
 
             if (path != null) {
-                String[] pathArray = path.split(Pattern.quote(File.separator));
-                String filename = pathArray[pathArray.length - 1];
-                selectedTab.setText(filename);
                 FileIO.write(path, text.getText());
             }
-        } */
+        }
         event.item.dispose();
     }
 
