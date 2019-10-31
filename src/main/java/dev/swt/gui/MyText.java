@@ -1,6 +1,5 @@
 package dev.swt.gui;
 
-import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 

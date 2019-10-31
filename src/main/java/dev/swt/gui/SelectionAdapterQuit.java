@@ -1,7 +1,6 @@
 package dev.swt.gui;
 
 import org.eclipse.swt.events.*;
-import org.eclipse.swt.widgets.*;
 
 public class SelectionAdapterQuit extends SelectionAdapter {
 

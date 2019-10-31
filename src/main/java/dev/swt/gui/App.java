@@ -21,6 +21,5 @@ public final class App {
             new Editor().run();
             break;
         }
-
     }
 }
