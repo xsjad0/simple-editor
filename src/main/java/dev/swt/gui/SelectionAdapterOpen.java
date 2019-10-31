@@ -18,19 +18,22 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 	}
 
 	public void widgetSelected(SelectionEvent e) {
-		CTabItem newTab = new CTabItem(tabFolder, SWT.CLOSE);
-		MyText text = new MyText(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 		Shell shell = (Shell) tabFolder.getShell();
 		FileDialog ask = new FileDialog(shell, SWT.OPEN);
 		String path = ask.open();
-		String[] pathArray = path.split(Pattern.quote(File.separator));
-		String filename = pathArray[pathArray.length - 1];
-		String content = FileIO.read(path);
 
-		newTab.setControl(text);
-		newTab.setText(filename);
-		text.setText(content);
-		text.addModifyListener(new ModifyListenerText());
-		tabFolder.setSelection(newTab);
+		if (path != null) {
+			CTabItem newTab = new CTabItem(tabFolder, SWT.CLOSE);
+			MyText text = new MyText(tabFolder, SWT.MULTI | SWT.V_SCROLL);
+			String[] pathArray = path.split(Pattern.quote(File.separator));
+			String filename = pathArray[pathArray.length - 1];
+			String content = FileIO.read(path);
+
+			newTab.setControl(text);
+			newTab.setText(filename);
+			text.setText(content);
+			text.addModifyListener(new ModifyListenerText());
+			tabFolder.setSelection(newTab);
+		}
 	}
 }
