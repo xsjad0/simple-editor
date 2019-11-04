@@ -1,0 +1,17 @@
+@startuml
+
+(*) --> "Open File-Menu"
+"Open File-Menu" --> "Select Quit"
+"Select Quit" --> If "Modified tabs?" then
+-right-> [Yes] "Open Exit-Dialog"
+else
+--> [No] (*)
+EndIf
+"Open Exit-Dialog" --> If "Exit-Dialog with..." then
+--> [No] (*)
+else
+--> [Yes] "Close application"
+EndIf
+"Close application" --> (*)
+
+@enduml

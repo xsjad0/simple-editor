@@ -27,6 +27,5 @@ public class SelectionAdapterNew extends SelectionAdapter {
 
 		text.addModifyListener(new ModifyListenerText(tabFolder));
 		tabFolder.setSelection(tabFolder.getItemCount() - 1);
-
 	}
 }

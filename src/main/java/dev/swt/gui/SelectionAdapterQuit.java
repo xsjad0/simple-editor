@@ -5,7 +5,7 @@ import org.eclipse.swt.events.*;
 public class SelectionAdapterQuit extends SelectionAdapter {
 
 	public SelectionAdapterQuit() {
-
+		// TODO: check if any tab is checked modified
 	}
 
 	@Override

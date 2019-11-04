@@ -1,0 +1,24 @@
+@startuml
+
+(*) --> "Open File-Menu"
+--> "Select Open..."
+--> "Open File-Dialog"
+--> "Select file to open"
+--> If "Exit File-Dialog with..." then
+-right-> [Open] "Get path"
+else
+--> [Cancel] (*)
+EndIf
+"Get path" --> ===B1=== 
+--> "Read content"
+--> ===B2===
+===B1=== --> "Get filename"
+--> ===B2===
+===B2=== --> "Create new tab"
+-> "Set filename as tab-title"
+--> "Add ModifyListener"
+-> "Select new tab"
+"Select new tab" --> "Write Content"
+--> (*)
+
+@enduml

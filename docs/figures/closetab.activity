@@ -1,0 +1,16 @@
+@startuml
+
+(*) --> "Press X to close tab"
+If "Tab modified?" then
+-right-> [Modified] "Open File-Dialog"
+-right-> If "Exit File-Dialog with..." then
+--> [Save] "Save content to file"
+--> "Close tab"
+else
+--> [Cancel] (*)
+EndIf
+else
+--> [Not Modified] "Close tab"
+-right-> (*)
+
+@enduml

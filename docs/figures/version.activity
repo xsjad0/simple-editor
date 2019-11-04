@@ -1,0 +1,10 @@
+@startuml
+
+(*) -> "Select File-Menu"
+-> "Select Help"
+-> "Select Version"
+--> "Open Version-Dialog"
+-left-> "Exit Version-Dialog"
+-left-> (*)
+
+@enduml

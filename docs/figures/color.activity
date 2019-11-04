@@ -1,0 +1,22 @@
+@startuml
+
+(*) --> "Open File-Menu"
+--> "Select Edit"
+--> "Select Text Color"
+--> "Open Color-Dialog"
+IF "Exit Color-Dialog with..." then
+-right-> [Ok] "Create RGB-Object"
+--> "Set RGB-Values"
+--> "Return RGB-Object"
+else
+--> [Cancel] "Return null"
+EndIf
+"Return null" --> "Validate Return-Value"
+"Return RGB-Object" --> "Validate Return-Value"
+IF "Return-Value..." then
+-right-> [Not Null] "Change Text-Color"
+else
+--> [Null] (*)
+"Change Text-Color" --> (*)
+
+@enduml

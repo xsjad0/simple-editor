@@ -1,0 +1,21 @@
+@startuml
+
+(*) --> "Select desired tab"
+--> "Open File-Menu"
+--> "Select Save..."
+--> "Open File-Dialog"
+--> "Select path"
+--> If "Exit File-Dialog with..." then
+-right-> [Save] "Get path"
+else
+--> [Cancel] (*)
+EndIf
+"Get path" --> ===B1===
+--> "Write text to file"
+--> ===B2===
+===B1=== --> "Get filename"
+"Get filename" --> "Set filename as tab-title"
+--> ===B2===
+===B2=== --> (*)
+
+@enduml

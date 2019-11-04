@@ -14,6 +14,8 @@ public class ColorDialog extends Dialog {
 	private Label[] rgbLabels;
 	private Spinner[] rgbSpinners;
 	private Button[] btns;
+
+	// TODO: get texts out of messagebundle
 	private String subTitle = "Please select text foreground color";
 	private String[] btnTitles = { "Ok", "Cancel" };
 	private String[] rgbTitles = { "red", "green", "blue" };
