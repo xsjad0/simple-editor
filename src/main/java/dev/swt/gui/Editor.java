@@ -182,7 +182,7 @@ public class Editor {
 		subMenuItems[0][0].addSelectionListener(new SelectionAdapterNew(tabFolder));
 		subMenuItems[0][1].addSelectionListener(new SelectionAdapterOpen(tabFolder));
 		subMenuItems[0][2].addSelectionListener(new SelectionAdapterSave(tabFolder));
-		subMenuItems[0][3].addSelectionListener(new SelectionAdapterQuit());
+		subMenuItems[0][3].addSelectionListener(new SelectionAdapterQuit(tabFolder));
 
 		// Edit-Menu
 		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabFolder));
