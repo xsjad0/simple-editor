@@ -34,6 +34,8 @@ public class SelectionAdapterQuit extends SelectionAdapter {
 			if (messageBox.open() == SWT.YES) {
 				e.display.dispose();
 			}
+		} else {
+			e.display.dispose();
 		}
 	}
 
