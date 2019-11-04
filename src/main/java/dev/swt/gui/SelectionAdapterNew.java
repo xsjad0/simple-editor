@@ -25,7 +25,7 @@ public class SelectionAdapterNew extends SelectionAdapter {
 		item.setControl(text);
 		// item.setShowClose(false);
 
-		text.addModifyListener(new ModifyListenerText());
+		text.addModifyListener(new ModifyListenerText(tabFolder));
 		tabFolder.setSelection(tabFolder.getItemCount() - 1);
 
 	}

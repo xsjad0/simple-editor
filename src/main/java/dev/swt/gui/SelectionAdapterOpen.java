@@ -32,7 +32,7 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 			newTab.setControl(text);
 			newTab.setText(filename);
 			text.setText(content);
-			text.addModifyListener(new ModifyListenerText());
+			text.addModifyListener(new ModifyListenerText(tabFolder));
 			tabFolder.setSelection(newTab);
 		}
 	}

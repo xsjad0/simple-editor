@@ -187,8 +187,16 @@ public class Editor {
 		subMenuItems[1][0].addSelectionListener(new SelectionAdapterColor(tabFolder));
 
 		// Help-Menu
-		// subMenuItems[1][0].addSelectionListener(new
-		// SelectionAdapterColor(tabForegroundColor));
+		subMenuItems[2][0].addListener(SWT.Selection, new Listener() {
+
+			@Override
+			public void handleEvent(Event event) {
+				MessageBox messageBox = new MessageBox(tabFolder.getShell(), SWT.APPLICATION_MODAL | SWT.OK);
+				messageBox.setText("Information");
+				messageBox.setMessage("Version 1.0.0\n\u00a9 by Marius Schenzle");
+				messageBox.open();
+			}
+		});
 
 		// CoolBarItem-Open
 		coolButtons[0].addSelectionListener(new SelectionAdapterOpen(tabFolder));
@@ -200,7 +208,7 @@ public class Editor {
 		CTabItem[] items = tabFolder.getItems();
 		for (CTabItem item : items) {
 			MyText text = (MyText) item.getControl();
-			text.addModifyListener(new ModifyListenerText());
+			text.addModifyListener(new ModifyListenerText(tabFolder));
 		}
 
 		// Application

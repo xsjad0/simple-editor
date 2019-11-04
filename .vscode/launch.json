@@ -7,7 +7,7 @@
             "mainClass": "dev.swt.gui.App",
             "projectName": "a1-simple-editor",
             "console": "internalConsole",
-            "args": "editor"
+            "args": "editor deutsch"
         }
     ]
 }
