@@ -1,6 +1,7 @@
 package dev.swt.gui;
 
 import java.io.File;
+import java.util.ResourceBundle;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
@@ -12,6 +13,8 @@ import org.eclipse.swt.custom.CTabItem;
 public class Editor {
 
 	private static final String IMAGE_PATH = "images" + File.separator;
+
+	private ResourceBundle msg;
 
 	private Display display;
 	private Shell shell;
@@ -41,6 +44,12 @@ public class Editor {
 			{ "Select text color", "", "", "" }, { "Show version informations", "", "", "" } }; */
 
 	public Editor() {
+		this(ResourceBundle.getBundle("dev.swt.gui.MessageBundle"));
+	}
+
+	public Editor(ResourceBundle msg) {
+		this.msg = msg;
+
 		makeDisplay();
 		makeShell();
 		makeMenu();
@@ -95,7 +104,7 @@ public class Editor {
 		layout.verticalSpacing = 5;
 
 		shell.setLayout(layout);
-		shell.setText("Simple-Editor");
+		shell.setText(msg.getString("editorTitle"));
 	}
 
 	/**
@@ -194,7 +203,7 @@ public class Editor {
 			public void handleEvent(Event event) {
 				MessageBox messageBox = new MessageBox(tabFolder.getShell(), SWT.APPLICATION_MODAL | SWT.OK);
 				messageBox.setText("Information");
-				messageBox.setMessage("Version 1.0.0\n\u00a9 by Marius Schenzle");
+				messageBox.setMessage("Version 1.0.0\n\u00a9 Marius Schenzle");
 				messageBox.open();
 			}
 		});

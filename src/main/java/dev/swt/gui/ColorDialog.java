@@ -86,7 +86,6 @@ public class ColorDialog extends Dialog {
 			}
 		});
 
-		shellDialog.setText(getText());
 		shellDialog.open();
 		shellDialog.pack();
 		while (!shellDialog.isDisposed()) {
@@ -105,6 +104,7 @@ public class ColorDialog extends Dialog {
 		layout.numColumns = 2;
 		layout.makeColumnsEqualWidth = true;
 		shell.setLayout(layout);
+		shell.setText("Color-Picker");
 	}
 
 	private void makeTextLabel(final Shell shell) {
