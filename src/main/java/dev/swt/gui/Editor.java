@@ -25,10 +25,11 @@ public class Editor {
 	private CoolItem[] coolItems;
 	private Button[] coolButtons;
 	private Image[] coolButtonImages;
-	private String[] pathImages = { "icon_OpenFolder.gif", "home_nav.gif" };
+	private String[] pathImages = { "icon_OpenFolder.gif", "save_edit.gif" };
 
 	private CTabFolder tabFolder;
 
+	// TODO: get text out of messagebundle
 	private String[] menuTitles = { "&File", "&Edit", "&Help" };
 	private String[][] subMenuTitles = { { "&New\tCtrl+N", "&Open...\tCtrl+O", "&Save...\tCtrl+S", "&Quit\tCtrl+Q" },
 			{ "Text &Color\tCtrl+C", "", "", "" }, { "&Version\tCtrl+V", "", "", "" } };
