@@ -1,5 +1,7 @@
 package dev.swt.gui;
 
+import java.util.ResourceBundle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -9,23 +11,21 @@ import org.eclipse.swt.widgets.*;
 
 public class ColorDialog extends Dialog {
 
+	private ResourceBundle msg;
+
 	private Label textLabel, colorField;
 	private RGB rgb;
 	private Label[] rgbLabels;
 	private Spinner[] rgbSpinners;
 	private Button[] btns;
 
-	// TODO: get texts out of messagebundle
-	private String subTitle = "Please select text foreground color";
-	private String[] btnTitles = { "Ok", "Cancel" };
-	private String[] rgbTitles = { "red", "green", "blue" };
-
-	public ColorDialog(Shell shell, int style) {
+	private ColorDialog(Shell shell, int style) {
 		super(shell, style);
 	}
 
-	public ColorDialog(Shell shell) {
+	public ColorDialog(ResourceBundle msg, Shell shell) {
 		this(shell, 0);
+		this.msg = msg;
 	}
 
 	public Object open() {
@@ -99,19 +99,19 @@ public class ColorDialog extends Dialog {
 
 	private void makeShell(final Shell shell) {
 		GridLayout layout = new GridLayout();
-		layout.horizontalSpacing = 20;
+		layout.horizontalSpacing = 10;
 		layout.verticalSpacing = 5;
 		layout.numColumns = 2;
 		layout.makeColumnsEqualWidth = true;
 		shell.setLayout(layout);
-		shell.setText("Color-Picker");
+		shell.setText(msg.getString("colorTitle"));
 	}
 
 	private void makeTextLabel(final Shell shell) {
 		textLabel = new Label(shell, SWT.FILL);
 		GridData layoutData = new GridData(SWT.CENTER, SWT.CENTER, true, true, 2, 1);
 		textLabel.setLayoutData(layoutData);
-		textLabel.setText(subTitle);
+		textLabel.setText(msg.getString("colorInfo"));
 	}
 
 	private void makeColorField(final Shell shell) {
@@ -124,41 +124,65 @@ public class ColorDialog extends Dialog {
 		Group group = new Group(shell, SWT.SHADOW_ETCHED_IN);
 		GridLayout layout = new GridLayout();
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2);
-		GridData layoutDataLabels = new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1);
-		GridData layoutDataSpinners = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
+		GridData layoutDataLabels = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		GridData layoutDataSpinners = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		rgbSpinners = new Spinner[3];
-		rgbLabels = new Label[rgbTitles.length];
+		rgbLabels = new Label[3];
 
 		layout.numColumns = 2;
 		layout.makeColumnsEqualWidth = false;
-		layout.horizontalSpacing = 15;
+		layout.horizontalSpacing = 0;
 		layout.verticalSpacing = 10;
-		// layout.marginHeight = 10;
+
 		group.setLayoutData(layoutData);
 		group.setLayout(layout);
-		group.setText("Text Color");
+		group.setText(msg.getString("colorGroup"));
 
-		for (int i = 0; i < 3; i++) {
-			rgbLabels[i] = new Label(group, SWT.FILL);
-			rgbLabels[i].setText(rgbTitles[i]);
-			rgbLabels[i].setLayoutData(layoutDataLabels);
-			rgbSpinners[i] = new Spinner(group, SWT.READ_ONLY | SWT.FILL);
-			rgbSpinners[i].setMinimum(0);
-			rgbSpinners[i].setMaximum(255);
-			rgbSpinners[i].setSelection(80);
-			rgbSpinners[i].setBackground(new Color(display, 255, 255, 255));
-			rgbSpinners[i].setLayoutData(layoutDataSpinners);
-		}
+		// RGB Red
+		rgbLabels[0] = new Label(group, SWT.FILL);
+		rgbLabels[0].setText(msg.getString("colorRed"));
+		rgbLabels[0].setLayoutData(layoutDataLabels);
+
+		rgbSpinners[0] = new Spinner(group, /* SWT.READ_ONLY | */ SWT.FILL);
+		rgbSpinners[0].setMinimum(0);
+		rgbSpinners[0].setMaximum(255);
+		rgbSpinners[0].setSelection(80);
+		rgbSpinners[0].setBackground(new Color(display, 255, 255, 255));
+		rgbSpinners[0].setLayoutData(layoutDataSpinners);
+
+		// RGB Green
+		rgbLabels[1] = new Label(group, SWT.FILL);
+		rgbLabels[1].setText(msg.getString("colorGreen"));
+		rgbLabels[1].setLayoutData(layoutDataLabels);
+		rgbSpinners[1] = new Spinner(group, /* SWT.READ_ONLY | */ SWT.FILL);
+		rgbSpinners[1].setMinimum(0);
+		rgbSpinners[1].setMaximum(255);
+		rgbSpinners[1].setSelection(80);
+		rgbSpinners[1].setBackground(new Color(display, 255, 255, 255));
+		rgbSpinners[1].setLayoutData(layoutDataSpinners);
+
+		// RGB Blue
+		rgbLabels[2] = new Label(group, SWT.FILL);
+		rgbLabels[2].setText(msg.getString("colorBlue"));
+		rgbLabels[2].setLayoutData(layoutDataLabels);
+		rgbSpinners[2] = new Spinner(group, /* SWT.READ_ONLY | */ SWT.FILL);
+		rgbSpinners[2].setMinimum(0);
+		rgbSpinners[2].setMaximum(255);
+		rgbSpinners[2].setSelection(80);
+		rgbSpinners[2].setBackground(new Color(display, 255, 255, 255));
+		rgbSpinners[2].setLayoutData(layoutDataSpinners);
 	}
 
 	private void makeButtons(final Shell shell) {
-		btns = new Button[btnTitles.length];
+		btns = new Button[2];
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 
-		for (int i = 0; i < btns.length; i++) {
-			btns[i] = new Button(shell, SWT.PUSH);
-			btns[i].setText(btnTitles[i]);
-			btns[i].setLayoutData(layoutData);
-		}
+		btns[0] = new Button(shell, SWT.PUSH);
+		btns[0].setText(msg.getString("colorOkay"));
+		btns[0].setLayoutData(layoutData);
+
+		btns[1] = new Button(shell, SWT.PUSH);
+		btns[1].setText(msg.getString("colorCancel"));
+		btns[1].setLayoutData(layoutData);
 	}
 }

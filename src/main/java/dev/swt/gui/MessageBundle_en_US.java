@@ -9,11 +9,12 @@ public class MessageBundle_en_US extends ListResourceBundle {
         return contents;
     }
 
-    private Object[][] contents = { { "editorTitle", "Text-Editor" }, { "editorTabText", "unbenannt" },
-            { "editorFile", "&Datei" }, { "editorEdit", "&Editieren" }, { "editorHelp", "&Hilfe" },
-            { "editorNew", "&Neu" }, { "editorOpen", "&Öffnen" }, { "editorSave", "&Speichern..." },
-            { "editorQuit", "&Beenden" }, { "editorColor", "Text &Farbe" }, { "colorTitle", "Farb-Auswahl" },
-            { "colorInfo", "Bitte wählen Sie eine Textfarbe aus" }, { "colorGroup", "Textfarbe" },
-            { "colorRed", "rot" }, { "colorGreen", "grün" }, { "colorBlue", "blau" }, { "colorOkay", "Ok" },
-            { "colorCancel", "Abbruch" } };
+    private Object[][] contents = { { "editorTitle", "Simple-Editor" }, { "editorTabText", "untitled" },
+            { "editorFile", "&File" }, { "editorEdit", "&Edit" }, { "editorHelp", "&Help" }, { "editorNew", "&New" },
+            { "editorOpen", "&Open" }, { "editorSave", "&Save..." }, { "editorQuit", "&Quit" },
+            { "editorColor", "Text &Color" }, { "editorVersion", "&Version" }, { "colorTitle", "Color-Picker" },
+            { "colorInfo", "Please select text foreground color" }, { "colorGroup", "Text Color" },
+            { "colorRed", "red" }, { "colorGreen", "green" }, { "colorBlue", "blue" }, { "colorOkay", "Ok" },
+            { "colorCancel", "Cancel" }, { "version", "1.1" }, { "owner", "Marius Schenzle" },
+            { "stopClosing", "Modified tabs found.\nClose application anyway?" } };
 }
