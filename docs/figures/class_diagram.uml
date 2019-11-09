@@ -1,0 +1,185 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class App {
+    +{static} main(String[] args)
+}
+class Editor {
+    -{static} final String IMAGE_PATH
+    -ResourceBundle msg
+    -ResourceBundle mnemonics
+    -Display display
+    -Shell shell
+    -Menu menuBar
+    -MenuItem[] menuItems
+    -Menu[] menus
+    -MenuItem[] fileMenuItems
+    -MenuItem[] editMenuItems
+    -MenuItem[] helpMenuItems
+    -CoolBar coolBar
+    -CoolItem[] coolItems
+    -Button[] coolButtons
+    -Image[] coolButtonImages
+    -CTabFolder tabFolder
+
+    +Editor()
+    +Editor(ResourceBundle msg)
+    +run()
+    -getMnemonics()
+    -makeDisplay()
+    -makeShell()
+    -makeMenu()
+    -makeImages()
+    -makeCoolBar()
+    -makeTabContainer()
+    -addListeners()
+    -disposeImages()
+}
+class MyFile {
+    -HashMap<String, String> meta
+    -String content
+    +MyFile()
+    +setMeta(String key, String value)
+    +setMeta(HashMap<String, String> meta)
+    +setContent(String content)
+    +getMeta(String key):String
+    +getMeta():HashMap<String, String>
+    +getContent():String
+    +addContent(String content)
+}
+class MyFileIO {
+    -MyFileIO()
+    +{static} read(String path):MyFile
+    +{static} write(String path, MyFile myFile)
+}
+class MyText {
+    -boolean modified
+    +MyText(Composite parent, int style)
+    +modify()
+    +save()
+    +isModified():boolean
+    +checkSubClass()
+}
+class RGB {
+    -int[] rgb
+    +setRGB(int[] rgb)
+    +setRed(int value)
+    +setGreen(int value)
+    +setBlue(int value)
+    +getRGB():int[]
+    +getRed():int
+    +getGreen():int
+    +getBlue():int
+    +toString():String
+}
+class ColorDialog {
+    -ResourceBundle msg
+    -Label textLabel
+    -Label colorField
+    -Label[] rgbLabels
+    -Spinner[] rgbSpinners
+    -Button[] btns
+    -RGB rgb
+    
+    -ColorDialog(Shell shell, int style)
+    +ColorDialog(ResourceBundle msg, Shell shell)
+    +open():Object
+    -makeShell(Shell shellDialog)
+    -makeTextLabel(Shell shellDialog)
+    -makeColorField(Shell shellDialog)
+    -makeSpinners(Display display, Shell shellDialog)
+    -makeButtons(Shell shellDialog)
+}
+class ModifyListenerSpinner {
+    -Label label
+    -Spinner[] rgbs
+
+    +ModifyListenerSpinner(Label label, Spinner[] rgbs)
+    +modifyText(ModifyEvent e)
+    -updateColor()
+}
+class ModifyListenerText {
+    -CTabFolder tabFolder
+    
+    +ModifyListenerText(CTabFolder tabFolder)
+    +modifyText(ModifyEvent e)
+}
+class SelectionAdapterColor {
+    -ResourceBundle msg
+    -CTabFolder tabFolder
+    +SelectionAdapterColor(ResourceBundle msg, CTabFolder tabFolder)
+    +widgetSelected(SelectionEvent e)
+}
+class SelectionAdapterNew {
+    -{static} int tabCount = 1
+    -ResourceBundle msg
+    -CTabFolder tabFolder
+    +SelectionAdapterNew(ResourceBundle msg, CTabFolder tabFolder)
+    +widgetSelected(SelectionEvent e)
+}
+class SelectionAdapterOpen {
+    -CTabFolder tabFolder
+    +SelectionAdapterOpen(ResourceBundle msg, CTabFolder tabFolder)
+    +widgetSelected(SelectionEvent e)
+}
+class SelectionAdapterQuit {
+    -ResourceBundle msg
+    -CTabFolder tabFolder
+    +SelectionAdapterQuit(ResourceBundle msg, CTabFolder tabFolder)
+    +widgetSelected(SelectionEvent e)
+}
+class SelectionAdapterSave {
+    -CTabFolder tabFolder
+    +SelectionAdapterSave(CTabFolder tabFolder)
+    +widgetSelected(SelectionEvent e)
+}
+class SelectionAdapterVersion {
+    -ResourceBundle msg
+    -CTabFolder tabFolder
+    +SelectionAdapterVersion(ResourceBundle msg, CTabFolder tabFolder)
+    +widgetSelected(SelectionEvent e)
+}
+
+Dialog <|-- ColorDialog
+App *-- Editor
+Text <|-- MyText
+ListResourceBundle <|-- MnemonicBundle_de_DE
+ListResourceBundle <|-- MessageBundle_de_DE
+ListResourceBundle <|-- MnemonicBundle_en_US
+ListResourceBundle <|-- MessageBundle_en_US
+CTabFolder2Listener <|-- TabEventListener
+Listener <|-- ListenerClose
+SelectionAdapter <|-- SelectionAdapterColor
+SelectionAdapter <|-- SelectionAdapterNew
+SelectionAdapter <|-- SelectionAdapterQuit
+SelectionAdapter <|-- SelectionAdapterOpen
+SelectionAdapter <|-- SelectionAdapterSave
+SelectionAdapter <|-- SelectionAdapterVersion
+ModifyListener <.. ModifyListenerSpinner
+ModifyListener <.. ModifyListenerText
+@enduml
+
+ColorDialog -- ModifyListenerSpinner
+ColorDialog -- ModifyListenerText
+ColorDialog -- RGB
+Editor -- SelectionAdapterColor
+Editor -- SelectionAdapterNew
+Editor -- SelectionAdapterOpen
+Editor -- SelectionAdapterSave
+Editor -- SelectionAdapterQuit
+Editor -- SelectionAdapterVersion
+Editor -- ModifyListenerText
+Editor -- TabEventListener
+Editor -- ListenerClose
+Editor -- MnemonicBundle_de_DE
+Editor -- MnemonicBundle_en_US
+Editor "1" *-- "*" MyText
+MyFileIO -- MyFile
+MessageBox -- SelectionAdapterVersion
+MessageBox -- SelectionAdapterQuit
+ModifyListenerSpinner -- RGB
+SelectionAdapterColor -- RGB
+SelectionAdapterSave -- MyFile
+SelectionAdapterOpen -- MyFile
+SelectionAdapterSave -- MyFileIO
+SelectionAdapterOpen -- MyFileIO
