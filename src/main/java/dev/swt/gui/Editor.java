@@ -236,7 +236,7 @@ public class Editor {
 			public void handleEvent(Event event) {
 				MessageBox messageBox = new MessageBox(tabFolder.getShell(), SWT.APPLICATION_MODAL | SWT.OK);
 				messageBox.setText("Information");
-				messageBox.setMessage(msg.getString("version") + "\n\u00a9" + msg.getString("owner"));
+				messageBox.setMessage(msg.getString("version") + "\n\u00a9 " + msg.getString("owner"));
 				messageBox.open();
 			}
 		});
