@@ -230,16 +230,7 @@ public class Editor {
 		editMenuItems[0].addSelectionListener(new SelectionAdapterColor(msg, tabFolder));
 
 		// Help-Menu
-		helpMenuItems[0].addListener(SWT.Selection, new Listener() {
-
-			@Override
-			public void handleEvent(Event event) {
-				MessageBox messageBox = new MessageBox(tabFolder.getShell(), SWT.APPLICATION_MODAL | SWT.OK);
-				messageBox.setText("Information");
-				messageBox.setMessage(msg.getString("version") + "\n\u00a9 " + msg.getString("owner"));
-				messageBox.open();
-			}
-		});
+		helpMenuItems[0].addSelectionListener(new SelectionAdapterVersion(msg, tabFolder));
 
 		// CoolBarItem-Open
 		coolButtons[0].addSelectionListener(new SelectionAdapterOpen(tabFolder));
@@ -255,29 +246,7 @@ public class Editor {
 		}
 
 		// Application
-		shell.addListener(SWT.Close, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				CTabItem[] tabs = tabFolder.getItems();
-				boolean isAnyTabModified = false;
-
-				for (CTabItem tab : tabs) {
-					MyText text = (MyText) tab.getControl();
-					if (text.isModified()) {
-						isAnyTabModified = true;
-						break;
-					}
-				}
-
-				if (isAnyTabModified) {
-					MessageBox messageBox = new MessageBox(tabFolder.getShell(),
-							SWT.APPLICATION_MODAL | SWT.YES | SWT.NO);
-					messageBox.setText("Information");
-					messageBox.setMessage(msg.getString("stopClosing"));
-					event.doit = messageBox.open() == SWT.YES;
-				}
-			}
-		});
+		shell.addListener(SWT.Close, new ListenerClose(msg, tabFolder));
 	}
 
 	/**
