@@ -14,9 +14,9 @@ public class SelectionAdapterNew extends SelectionAdapter {
 	private CTabFolder tabFolder;
 	private ResourceBundle msg;
 
-	public SelectionAdapterNew(CTabFolder tabFolder) {
+	public SelectionAdapterNew(ResourceBundle msg, CTabFolder tabFolder) {
+		this.msg = msg;
 		this.tabFolder = tabFolder;
-		msg = ResourceBundle.getBundle("dev.swt.gui.MessageBundle");
 	}
 
 	public void widgetSelected(SelectionEvent e) {
