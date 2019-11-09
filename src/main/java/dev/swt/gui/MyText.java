@@ -15,6 +15,10 @@ public class MyText extends Text {
         modified = true;
     }
 
+    public void save() {
+        modified = false;
+    }
+
     public boolean isModified() {
         return modified;
     }

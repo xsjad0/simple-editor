@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.*;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.*;
 
 public class SelectionAdapterOpen extends SelectionAdapter {
@@ -23,17 +24,23 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 		String path = ask.open();
 
 		if (path != null) {
-			CTabItem newTab = new CTabItem(tabFolder, SWT.CLOSE);
-			MyText text = new MyText(tabFolder, SWT.MULTI | SWT.V_SCROLL);
 			String[] pathArray = path.split(Pattern.quote(File.separator));
 			String filename = pathArray[pathArray.length - 1];
-			String content = FileIO.read(path);
 
-			newTab.setControl(text);
-			newTab.setText(filename);
-			text.setText(content);
-			text.addModifyListener(new ModifyListenerText(tabFolder));
-			tabFolder.setSelection(newTab);
+			MyFile myFile = MyFileIO.read(path);
+			if (myFile != null) {
+				CTabItem newTab = new CTabItem(tabFolder, SWT.CLOSE);
+				MyText text = new MyText(tabFolder, SWT.MULTI | SWT.V_SCROLL);
+				newTab.setControl(text);
+				newTab.setText(filename);
+				text.setForeground(new Color(tabFolder.getDisplay(), Integer.valueOf(myFile.getMeta("ForegroundRed")),
+						Integer.valueOf(myFile.getMeta("ForegroundGreen")),
+						Integer.valueOf(myFile.getMeta("ForegroundBlue"))));
+				text.setText(myFile.getContent());
+				text.addModifyListener(new ModifyListenerText(tabFolder));
+				tabFolder.setSelection(newTab);
+			}
+
 		}
 	}
 }

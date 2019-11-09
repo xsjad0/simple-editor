@@ -21,7 +21,7 @@ public class SelectionAdapterSave extends SelectionAdapter {
 		CTabItem selectedTab = tabFolder.getSelection();
 
 		if (selectedTab != null) {
-			Text text = (Text) selectedTab.getControl();
+			MyText text = (MyText) selectedTab.getControl();
 			Shell shell = (Shell) tabFolder.getShell();
 			FileDialog ask = new FileDialog(shell, SWT.SAVE);
 			String path = ask.open();
@@ -29,8 +29,14 @@ public class SelectionAdapterSave extends SelectionAdapter {
 			if (path != null) {
 				String[] pathArray = path.split(Pattern.quote(File.separator));
 				String filename = pathArray[pathArray.length - 1];
+				MyFile myFile = new MyFile();
+				myFile.setContent(text.getText());
+				myFile.setMeta("ForegroundRed", String.valueOf(text.getForeground().getRed()));
+				myFile.setMeta("ForegroundGreen", String.valueOf(text.getForeground().getGreen()));
+				myFile.setMeta("ForegroundBlue", String.valueOf(text.getForeground().getBlue()));
 				selectedTab.setText(filename);
-				FileIO.write(path, text.getText());
+				MyFileIO.write(path, myFile);
+				text.save();
 			}
 		}
 	}
