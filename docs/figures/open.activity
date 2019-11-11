@@ -17,8 +17,8 @@ EndIf
 ===B2=== --> "Create new tab"
 -> "Set filename as tab-title"
 --> "Add ModifyListener"
--> "Select new tab"
-"Select new tab" --> "Write Content"
+-> "Focus new tab"
+--> "Write Content"
 --> (*)
 
 @enduml

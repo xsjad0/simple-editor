@@ -1,9 +1,9 @@
 @startuml
 
-(*) -> "Select File-Menu"
--> "Select Help"
+(*) -> "Open Help-Menu"
 -> "Select Version"
---> "Open Version-Dialog"
+-> "Open Version-Dialog"
+-->"Press Ok or X to close"
 -left-> "Exit Version-Dialog"
 -left-> (*)
 

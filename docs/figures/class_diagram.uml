@@ -157,7 +157,10 @@ SelectionAdapter <|-- SelectionAdapterSave
 SelectionAdapter <|-- SelectionAdapterVersion
 ModifyListener <.. ModifyListenerSpinner
 ModifyListener <.. ModifyListenerText
+
+
 @enduml
+
 
 ColorDialog -- ModifyListenerSpinner
 ColorDialog -- ModifyListenerText
