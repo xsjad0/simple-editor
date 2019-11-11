@@ -1,0 +1,24 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Application-Layer" #888888 {
+    class MyFile {
+        -HashMap<String, String> meta
+        -String content
+        +MyFile()
+        +setMeta(String key, String value)
+        +setMeta(HashMap<String, String> meta)
+        +setContent(String content)
+        +getMeta(String key):String
+        +getMeta():HashMap<String, String>
+        +getContent():String
+        +addContent(String content)
+    }
+    class MyFileIO {
+        -MyFileIO()
+        +{static} read(String path):MyFile
+        +{static} write(String path, MyFile myFile)
+    }
+}
+
+@enduml

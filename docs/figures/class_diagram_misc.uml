@@ -1,0 +1,44 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Miscelaneous" #DDDDDD {
+    class MyText {
+        -boolean modified
+        +MyText(Composite parent, int style)
+        +modify()
+        +save()
+        +isModified():boolean
+        +checkSubClass()
+    }
+    class RGB {
+        -int[] rgb
+        +setRGB(int[] rgb)
+        +setRed(int value)
+        +setGreen(int value)
+        +setBlue(int value)
+        +getRGB():int[]
+        +getRed():int
+        +getGreen():int
+        +getBlue():int
+        +toString():String
+    }
+    class Text {
+    }
+    class ListResourceBundle {
+    }
+    class MnemonicBundle_de_DE {
+    }
+    class MnemonicBundle_en_US {
+    }
+    class MessageBundle_de_DE {
+    }
+    class MessageBundle_en_US {
+    }
+    ListResourceBundle <|-- MnemonicBundle_de_DE
+    ListResourceBundle <|-- MessageBundle_de_DE
+    ListResourceBundle <|-- MnemonicBundle_en_US
+    ListResourceBundle <|-- MessageBundle_en_US
+    Text <|-- MyText
+}
+
+@enduml

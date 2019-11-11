@@ -1,0 +1,9 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Main entry point" #CCCCCC {
+    class App {
+        +{static} main(String[] args)
+    }
+}
+@enduml

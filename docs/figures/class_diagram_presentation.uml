@@ -1,0 +1,38 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation-Layer" #FF0000 {
+    class Editor {
+        -{static} final String IMAGE_PATH
+        -ResourceBundle msg
+        -ResourceBundle mnemonics
+        -Display display
+        -Shell shell
+        -Menu menuBar
+        -MenuItem[] menuItems
+        -Menu[] menus
+        -MenuItem[] fileMenuItems
+        -MenuItem[] editMenuItems
+        -MenuItem[] helpMenuItems
+        -CoolBar coolBar
+        -CoolItem[] coolItems
+        -Button[] coolButtons
+        -Image[] coolButtonImages
+        -CTabFolder tabFolder
+
+        +Editor()
+        +Editor(ResourceBundle msg)
+        +run()
+        -getMnemonics()
+        -makeDisplay()
+        -makeShell()
+        -makeMenu()
+        -makeImages()
+        -makeCoolBar()
+        -makeTabContainer()
+        -addListeners()
+        -disposeImages()
+    }
+}
+
+@enduml

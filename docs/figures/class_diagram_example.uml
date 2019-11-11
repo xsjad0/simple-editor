@@ -1,0 +1,80 @@
+@startuml
+skinparam classAttributeIconSize 0
+scale 1000 width
+
+package "Main entry point" #CCCCCC {
+    class App {
+        +{static} main(String[] args)
+    }
+}
+
+package "Presentation-Layer" #red {
+    class Editor {
+        -{static} final String IMAGE_PATH
+        -ResourceBundle msg
+        -ResourceBundle mnemonics
+        -Display display
+        -Shell shell
+        -Menu menuBar
+        -MenuItem[] menuItems
+        -Menu[] menus
+        -MenuItem[] fileMenuItems
+        -MenuItem[] editMenuItems
+        -MenuItem[] helpMenuItems
+        -CoolBar coolBar
+        -CoolItem[] coolItems
+        -Button[] coolButtons
+        -Image[] coolButtonImages
+        -CTabFolder tabFolder
+
+        +Editor()
+        +Editor(ResourceBundle msg)
+        +run()
+        -getMnemonics()
+        -makeDisplay()
+        -makeShell()
+        -makeMenu()
+        -makeImages()
+        -makeCoolBar()
+        -makeTabContainer()
+        -addListeners()
+        -disposeImages()
+    }
+}
+
+package "Dialogmanagement-Layer" #8080C0 {
+    class SelectionAdapterSave {
+        -CTabFolder tabFolder
+        +SelectionAdapterSave(CTabFolder tabFolder)
+        +widgetSelected(SelectionEvent e)
+    }
+    abstract class SelectionAdapter {
+    }
+}
+
+package "Application-Layer" #EEEEEE {
+    class MyFile {
+        -HashMap<String, String> meta
+        -String content
+        +MyFile()
+        +setMeta(String key, String value)
+        +setMeta(HashMap<String, String> meta)
+        +setContent(String content)
+        +getMeta(String key):String
+        +getMeta():HashMap<String, String>
+        +getContent():String
+        +addContent(String content)
+    }
+    class MyFileIO {
+        -MyFileIO()
+        +{static} read(String path):MyFile
+        +{static} write(String path, MyFile myFile)
+    }
+}
+Editor *--> SelectionAdapterSave
+SelectionAdapter <|- SelectionAdapterSave
+SelectionAdapterSave -- MyFile
+SelectionAdapterSave -- MyFileIO
+SelectionAdapter -[hidden]up-> App
+SelectionAdapter -[hidden]-> MyFile
+@enduml

@@ -1,0 +1,107 @@
+@startuml
+skinparam classAttributeIconSize 0
+scale 3000 width
+
+package "Dialogmanagement-Layer" #8080C0 {
+    class ColorDialog {
+        -ResourceBundle msg
+        -Label textLabel
+        -Label colorField
+        -Label[] rgbLabels
+        -Spinner[] rgbSpinners
+        -Button[] btns
+        -RGB rgb
+        
+        -ColorDialog(Shell shell, int style)
+        +ColorDialog(ResourceBundle msg, Shell shell)
+        +open():Object
+        -makeShell(Shell shellDialog)
+        -makeTextLabel(Shell shellDialog)
+        -makeColorField(Shell shellDialog)
+        -makeSpinners(Display display, Shell shellDialog)
+        -makeButtons(Shell shellDialog)
+    }
+    class Dialog {
+    }
+    class ModifyListenerSpinner {
+        -Label label
+        -Spinner[] rgbs
+
+        +ModifyListenerSpinner(Label label, Spinner[] rgbs)
+        +modifyText(ModifyEvent e)
+        -updateColor()
+    }
+    class ModifyListenerText {
+        -CTabFolder tabFolder
+        
+        +ModifyListenerText(CTabFolder tabFolder)
+        +modifyText(ModifyEvent e)
+    }
+    class SelectionAdapterColor {
+        -ResourceBundle msg
+        -CTabFolder tabFolder
+        +SelectionAdapterColor(ResourceBundle msg, CTabFolder tabFolder)
+        +widgetSelected(SelectionEvent e)
+    }
+    class SelectionAdapterNew {
+        -{static} int tabCount = 1
+        -ResourceBundle msg
+        -CTabFolder tabFolder
+        +SelectionAdapterNew(ResourceBundle msg, CTabFolder tabFolder)
+        +widgetSelected(SelectionEvent e)
+    }
+    class SelectionAdapterOpen {
+        -CTabFolder tabFolder
+        +SelectionAdapterOpen(ResourceBundle msg, CTabFolder tabFolder)
+        +widgetSelected(SelectionEvent e)
+    }
+    class SelectionAdapterQuit {
+        -ResourceBundle msg
+        -CTabFolder tabFolder
+        +SelectionAdapterQuit(ResourceBundle msg, CTabFolder tabFolder)
+        +widgetSelected(SelectionEvent e)
+    }
+    class SelectionAdapterSave {
+        -CTabFolder tabFolder
+        +SelectionAdapterSave(CTabFolder tabFolder)
+        +widgetSelected(SelectionEvent e)
+    }
+    class SelectionAdapterVersion {
+        -ResourceBundle msg
+        -CTabFolder tabFolder
+        +SelectionAdapterVersion(ResourceBundle msg, CTabFolder tabFolder)
+        +widgetSelected(SelectionEvent e)
+    }
+    abstract class SelectionAdapter {
+    }
+    interface ModifyListener {
+    }
+    class CTabFolder2Listener {
+    }
+    class Listener {
+    }
+    class TabEventListener {
+    }
+    class ListenerClose {
+    }
+    Dialog <|-- ColorDialog
+    SelectionAdapter <|-right- SelectionAdapterColor
+    SelectionAdapter <|-left- SelectionAdapterNew
+    SelectionAdapter <|-- SelectionAdapterQuit
+    SelectionAdapter <|-- SelectionAdapterOpen
+    SelectionAdapter <|-- SelectionAdapterSave
+    SelectionAdapter <|-- SelectionAdapterVersion
+    ModifyListener <|.. ModifyListenerSpinner
+    ModifyListener <|.. ModifyListenerText
+    CTabFolder2Listener <|-- TabEventListener
+    Listener <|-- ListenerClose
+    ListenerClose -[hidden]-> ModifyListener
+    Dialog -[hidden]> SelectionAdapterNew
+    SelectionAdapterNew -[hidden]-> SelectionAdapterOpen
+    SelectionAdapterOpen -[hidden]-> SelectionAdapterQuit
+    SelectionAdapterVersion -[hidden]-> SelectionAdapterSave
+    SelectionAdapterColor -[hidden]-> SelectionAdapterVersion
+
+}
+
+@enduml

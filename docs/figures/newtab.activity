@@ -1,13 +1,13 @@
 @startuml
 
-(*) --> "Open File-Menu"
---> "Select New"
---> "Create CTabItem-Object"
+(*) -> "Open File-Menu"
+-> "Select New"
+-> "Create CTabItem-Object"
 --> "Create MyText-Object"
---> "Increment Tab-Counter"
---> "Set default Tab-Title"
+-left-> "Increment Tab-Counter"
+-left-> "Set default Tab-Title"
 --> "Add ModifyListener to MyText-Object"
---> "Set focus on new tab"
---> (*)
+-> "Set focus on new tab"
+-> (*)
 
 @enduml
