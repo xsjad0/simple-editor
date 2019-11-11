@@ -26,6 +26,7 @@ public class SelectionAdapterColor extends SelectionAdapter {
 			RGB rgb = (RGB) cd.open();
 
 			if (rgb != null) {
+				selected.getControl().getForeground().dispose();
 				selected.getControl()
 						.setForeground(new Color(tabFolder.getDisplay(), rgb.getRed(), rgb.getGreen(), rgb.getBlue()));
 			}
