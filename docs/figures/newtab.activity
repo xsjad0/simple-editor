@@ -1,7 +1,6 @@
 @startuml
 
 (*) --> "Open File-Menu"
---> "Select File"
 --> "Select New"
 --> "Create CTabItem-Object"
 --> "Create MyText-Object"

@@ -40,7 +40,6 @@ public class SelectionAdapterOpen extends SelectionAdapter {
 				text.addModifyListener(new ModifyListenerText(tabFolder));
 				tabFolder.setSelection(newTab);
 			}
-
 		}
 	}
 }

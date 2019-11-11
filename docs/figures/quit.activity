@@ -5,7 +5,7 @@
 "Select Quit" --> If "Modified tabs?" then
 -right-> [Yes] "Open Exit-Dialog"
 else
---> [No] (*)
+--> [No] "Close application"
 EndIf
 "Open Exit-Dialog" --> If "Exit-Dialog with..." then
 --> [No] (*)

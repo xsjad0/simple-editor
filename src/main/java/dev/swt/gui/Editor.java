@@ -36,13 +36,14 @@ public class Editor {
 	private CTabFolder tabFolder;
 
 	public Editor() {
-		this(ResourceBundle.getBundle("dev.swt.gui.MessageBundle"));
+		this(ResourceBundle.getBundle("dev.swt.gui.MessageBundle"),
+				ResourceBundle.getBundle("dev.swt.gui.MnemonicBundle"));
 	}
 
-	public Editor(ResourceBundle msg) {
+	public Editor(ResourceBundle msg, ResourceBundle mnemonics) {
 		this.msg = msg;
+		this.mnemonics = mnemonics;
 
-		getMnemonics();
 		makeDisplay();
 		makeShell();
 		makeMenu();
@@ -61,13 +62,6 @@ public class Editor {
 		}
 		disposeImages();
 		display.dispose();
-	}
-
-	/**
-	 * Import Mnemonics
-	 */
-	private void getMnemonics() {
-		mnemonics = ResourceBundle.getBundle("dev.swt.gui.MnemonicBundle");
 	}
 
 	/**
@@ -221,7 +215,7 @@ public class Editor {
 	 */
 	private void addListeners() {
 		// File-Menu
-		fileMenuItems[0].addSelectionListener(new SelectionAdapterNew(tabFolder));
+		fileMenuItems[0].addSelectionListener(new SelectionAdapterNew(msg, tabFolder));
 		fileMenuItems[1].addSelectionListener(new SelectionAdapterOpen(tabFolder));
 		fileMenuItems[2].addSelectionListener(new SelectionAdapterSave(tabFolder));
 		fileMenuItems[3].addSelectionListener(new SelectionAdapterQuit(msg, tabFolder));
@@ -230,16 +224,7 @@ public class Editor {
 		editMenuItems[0].addSelectionListener(new SelectionAdapterColor(msg, tabFolder));
 
 		// Help-Menu
-		helpMenuItems[0].addListener(SWT.Selection, new Listener() {
-
-			@Override
-			public void handleEvent(Event event) {
-				MessageBox messageBox = new MessageBox(tabFolder.getShell(), SWT.APPLICATION_MODAL | SWT.OK);
-				messageBox.setText("Information");
-				messageBox.setMessage(msg.getString("version") + "\n\u00a9" + msg.getString("owner"));
-				messageBox.open();
-			}
-		});
+		helpMenuItems[0].addSelectionListener(new SelectionAdapterVersion(msg, tabFolder));
 
 		// CoolBarItem-Open
 		coolButtons[0].addSelectionListener(new SelectionAdapterOpen(tabFolder));
@@ -255,29 +240,7 @@ public class Editor {
 		}
 
 		// Application
-		shell.addListener(SWT.Close, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				CTabItem[] tabs = tabFolder.getItems();
-				boolean isAnyTabModified = false;
-
-				for (CTabItem tab : tabs) {
-					MyText text = (MyText) tab.getControl();
-					if (text.isModified()) {
-						isAnyTabModified = true;
-						break;
-					}
-				}
-
-				if (isAnyTabModified) {
-					MessageBox messageBox = new MessageBox(tabFolder.getShell(),
-							SWT.APPLICATION_MODAL | SWT.YES | SWT.NO);
-					messageBox.setText("Information");
-					messageBox.setMessage(msg.getString("stopClosing"));
-					event.doit = messageBox.open() == SWT.YES;
-				}
-			}
-		});
+		shell.addListener(SWT.Close, new ListenerClose(msg, tabFolder));
 	}
 
 	/**

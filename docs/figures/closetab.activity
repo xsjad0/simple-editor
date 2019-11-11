@@ -7,7 +7,7 @@ If "Tab modified?" then
 --> [Save] "Save content to file"
 --> "Close tab"
 else
---> [Cancel] (*)
+--> [Cancel] "Close tab"
 EndIf
 else
 --> [Not Modified] "Close tab"

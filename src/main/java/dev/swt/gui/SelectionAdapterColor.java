@@ -20,12 +20,16 @@ public class SelectionAdapterColor extends SelectionAdapter {
 
 	public void widgetSelected(SelectionEvent e) {
 		CTabItem selected = tabFolder.getSelection();
-		ColorDialog cd = new ColorDialog(msg, tabFolder.getShell());
-		RGB rgb = (RGB) cd.open();
 
-		if (rgb != null) {
-			selected.getControl()
-					.setForeground(new Color(tabFolder.getDisplay(), rgb.getRed(), rgb.getGreen(), rgb.getBlue()));
+		if (selected != null) {
+			ColorDialog cd = new ColorDialog(msg, tabFolder.getShell());
+			RGB rgb = (RGB) cd.open();
+
+			if (rgb != null) {
+				selected.getControl().getForeground().dispose();
+				selected.getControl()
+						.setForeground(new Color(tabFolder.getDisplay(), rgb.getRed(), rgb.getGreen(), rgb.getBlue()));
+			}
 		}
 	}
 }

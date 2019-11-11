@@ -1,7 +1,6 @@
 @startuml
 
-(*) --> "Open File-Menu"
---> "Select Edit"
+(*) --> "Open Edit-Menu"
 --> "Select Text Color"
 --> "Open Color-Dialog"
 IF "Exit Color-Dialog with..." then
