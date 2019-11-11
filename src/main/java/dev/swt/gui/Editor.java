@@ -221,7 +221,7 @@ public class Editor {
 	 */
 	private void addListeners() {
 		// File-Menu
-		fileMenuItems[0].addSelectionListener(new SelectionAdapterNew(tabFolder));
+		fileMenuItems[0].addSelectionListener(new SelectionAdapterNew(msg, tabFolder));
 		fileMenuItems[1].addSelectionListener(new SelectionAdapterOpen(tabFolder));
 		fileMenuItems[2].addSelectionListener(new SelectionAdapterSave(tabFolder));
 		fileMenuItems[3].addSelectionListener(new SelectionAdapterQuit(msg, tabFolder));
