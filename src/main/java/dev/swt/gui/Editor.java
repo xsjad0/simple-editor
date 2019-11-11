@@ -36,13 +36,14 @@ public class Editor {
 	private CTabFolder tabFolder;
 
 	public Editor() {
-		this(ResourceBundle.getBundle("dev.swt.gui.MessageBundle"));
+		this(ResourceBundle.getBundle("dev.swt.gui.MessageBundle"),
+				ResourceBundle.getBundle("dev.swt.gui.MnemonicBundle"));
 	}
 
-	public Editor(ResourceBundle msg) {
+	public Editor(ResourceBundle msg, ResourceBundle mnemonics) {
 		this.msg = msg;
+		this.mnemonics = mnemonics;
 
-		getMnemonics();
 		makeDisplay();
 		makeShell();
 		makeMenu();
@@ -61,13 +62,6 @@ public class Editor {
 		}
 		disposeImages();
 		display.dispose();
-	}
-
-	/**
-	 * Import Mnemonics
-	 */
-	private void getMnemonics() {
-		mnemonics = ResourceBundle.getBundle("dev.swt.gui.MnemonicBundle");
 	}
 
 	/**
