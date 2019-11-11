@@ -22,7 +22,8 @@ public final class App {
         if (args.length == 2) {
             Locale currentLocale = new Locale(args[0], args[1]);
             if (Arrays.asList(supportedLocales).contains(currentLocale)) {
-                new Editor(ResourceBundle.getBundle("dev.swt.gui.MessageBundle", currentLocale)).run();
+                new Editor(ResourceBundle.getBundle("dev.swt.gui.MessageBundle", currentLocale),
+                        ResourceBundle.getBundle("dev.swt.gui.MnemonicBundle", currentLocale)).run();
             } else {
                 System.out.println("Supported locales:");
                 for (Locale locale : supportedLocales) {

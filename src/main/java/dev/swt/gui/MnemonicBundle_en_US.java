@@ -9,7 +9,7 @@ public class MnemonicBundle_en_US extends ListResourceBundle {
         return contents;
     }
 
-    private Object[][] contents = { { "editorFile", 'D' }, { "editorEdit", 'E' }, { "editorHelp", 'H' },
-            { "editorNew", 'N' }, { "editorOpen", 'O' }, { "editorSave", 'S' }, { "editorQuit", 'B' },
-            { "editorColor", 'F' }, { "editorVersion", 'V' } };
+    private Object[][] contents = { { "editorFile", 'F' }, { "editorEdit", 'E' }, { "editorHelp", 'H' },
+            { "editorNew", 'N' }, { "editorOpen", 'O' }, { "editorSave", 'S' }, { "editorQuit", 'Q' },
+            { "editorColor", 'C' }, { "editorVersion", 'V' } };
 }
