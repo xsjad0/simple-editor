@@ -15,7 +15,7 @@ public class MessageBundle_de_DE extends ListResourceBundle {
             { "editorQuit", "&Beenden" }, { "editorColor", "Text &Farbe" }, { "editorVersion", "&Version" },
             { "colorTitle", "Farb-Auswahl" }, { "colorInfo", "Bitte wählen Sie eine Textfarbe aus" },
             { "colorGroup", "Textfarbe" }, { "colorRed", "rot" }, { "colorGreen", "grün" }, { "colorBlue", "blau" },
-            { "colorOkay", "Ok" }, { "colorCancel", "Abbruch" }, { "version", "Version 1.3" },
+            { "colorOkay", "Ok" }, { "colorCancel", "Abbruch" }, { "version", "Version 1.4" },
             { "owner", "Marius Schenzle" },
             { "stopClosing", "Modifizierte Tabs entdeckt.\nWollen Sie trotzdem schließen?" } };
 }

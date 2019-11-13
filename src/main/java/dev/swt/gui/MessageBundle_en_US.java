@@ -15,6 +15,6 @@ public class MessageBundle_en_US extends ListResourceBundle {
             { "editorColor", "Text &Color" }, { "editorVersion", "&Version" }, { "colorTitle", "Color-Picker" },
             { "colorInfo", "Please select text foreground color" }, { "colorGroup", "Text Color" },
             { "colorRed", "red" }, { "colorGreen", "green" }, { "colorBlue", "blue" }, { "colorOkay", "Ok" },
-            { "colorCancel", "Cancel" }, { "version", "Version 1.3" }, { "owner", "Marius Schenzle" },
+            { "colorCancel", "Cancel" }, { "version", "Version 1.4" }, { "owner", "Marius Schenzle" },
             { "stopClosing", "Modified tabs found.\nClose application anyway?" } };
 }
