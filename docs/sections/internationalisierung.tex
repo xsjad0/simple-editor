@@ -5,3 +5,34 @@ entweder werden die entsprechenden Texte in Resourcen-Dateien ausgelagert und di
 angezeigt zu bekommen oder es werden separate Java-Klassen geschrieben, die der Anwendung ein Array von Objekten zurückliefert.
 In unserer Anwendung wurden beide Wege realisiert, jedoch ist die zweite Methode über die Java-Klassen aktiv.
 Folgend ist der Inhalt der entsprechenden Dateien für die deutsche Sprache zu sehen.
+
+\begin{lstlisting}[frame=single,language=JAVA,caption=Java Resourcen-Klasse]
+    package dev.swt.gui;  
+    import java.util.ListResourceBundle;     
+    /**
+        * German Messages
+        */
+    public class MessageBundle_de_DE extends ListResourceBundle {
+        @Override
+        protected Object[][] getContents() {
+            return contents;
+        }  
+        private Object[][] contents = { { "editorTitle", "Text-Editor" },
+            { "editorTabText", "unbenannt" }, { "editorFile", "&Datei" },
+            { "editorEdit", "&Editieren" }, { "editorHelp", "&Hilfe" },
+            { "editorNew", "&Neu" }, { "editorOpen", "&Oeffnen" },
+            { "editorSave", "&Speichern..." }, { "editorQuit", "&Beenden" },
+            { "editorColor", "Text &Farbe" }, { "editorVersion", "&Version" },
+            { "colorTitle", "Farb-Auswahl" }, { "colorInfo", "Bitte waehlen Sie eine Textfarbe aus" },
+            { "colorGroup", "Textfarbe" }, { "colorRed", "rot" },
+            { "colorGreen", "gruen" }, { "colorBlue", "blau" },
+            { "colorOkay", "Ok" }, { "colorCancel", "Abbruch" },
+            { "version", "Version 1.3" }, { "owner", "Marius Schenzle" },
+            { "stopClosing", "Modifizierte Tabs entdeckt.\nWollen Sie trotzdem schliessen?" } };
+    }
+\end{lstlisting}
+
+\newpage
+
+\lstinputlisting[frame=single,caption=Java Resourcen-Datei]{files/MessageBundle_de_DE.properties}
+

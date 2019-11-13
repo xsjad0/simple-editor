@@ -31,3 +31,5 @@ buildNumber.properties
 #
 .local/
 *.pdf
+!docs/dokumentation.pdf
+*.lol

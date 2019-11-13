@@ -2,35 +2,52 @@
 
 \subsection{Aufbau der Präsentationsschicht}
 
-\begin{itemize}
-\item Menu-Leiste
-    \begin{itemize}
-        \item Datei-Menu
-        \begin{itemize}
-            \item New
-            \item Open\dots
-            \item Save\dots
-            \item Quit        
-        \end{itemize}
-        \item Edit-Menu
-        \begin{itemize}
-            \item Textfarbe
-        \end{itemize}
-        \item Hilfe-Menu
-        \begin{itemize}
-            \item Versionshinweis        
-        \end{itemize}
-    \end{itemize}
-\item Coolbar-Leiste
-\item Tab-Leiste
-\end{itemize}
+Die fertige Applikation ist in Abbildung \ref{fig:app} zu sehen.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/app/application.png}
+    \caption{Editor Applikation}
+    \label{fig:app}
+\end{figure}
 
+Das Menu ist folgendermaßen aufgebaut
+
+\begin{enumerate}
+\item Datei-Menu
+    \begin{enumerate}
+    \item Neu
+    \item Öffnen...
+    \item Speichern...
+    \item Beenden
+    \end{enumerate}
+\item Editieren
+    \begin{enumerate}
+    \item Text-Farbe
+    \end{enumerate}
+\item Hilfe
+    \begin{enumerate}
+    \item Version
+    \end{enumerate}
+\end{enumerate}
+
+\noindent
+Unter der Menu-Leiste befindet sich eine sogenannte 'Coolbar' (siehe Abbildung \ref{fig:app}).
+Über diese können die Kommandos 'Datei öffnen' und 'Datei speichern' ausgeführt werden.
+Text wird über die Textfelder in den Tabs editiert. Über den Farb-Dialog kann pro Tab die 
+Textfarbe ausgewählt werden. Der Farb-Dialog ist in Abbildung \ref{fig:color} zu sehen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{figures/app/colordialog.png}
+    \caption{Auswahl der Textfarbe im aktuellen Tab}
+    \label{fig:color}
+\end{figure}
 
 \subsection{Beschreibung der Workflows der Editor-Anwendung}
-Zur Veranschaulichung der Editor-Workflows werden Aktivitätsdiagramme nach der UML2-Spezifikation verwendet.
-Die folgdenden beiden Diagramme veranschaulichen den Workflow für das Öffnen und Schließen eines Tabs.
-
+Zur Veranschaulichung der Editor-Workflows werden Aktivitätsdiagramme
+nach der UML2-Spezifikation verwendet. Die folgdenden beiden Diagramme
+veranschaulichen den Workflow für das Öffnen und Schließen eines Tabs.
 
 \begin{figure}[H]
     \centering
